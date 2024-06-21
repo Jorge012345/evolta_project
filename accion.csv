@@ -1,0 +1,3 @@
+id,nombre,descripcion,icono,prospecto_id
+1,Enviar correo,Se envió un correo,fa fa-envelope-o,1
+2,Enviar WhatsApp,Se envió un WhatsApp,fa fa-whatsapp,2
