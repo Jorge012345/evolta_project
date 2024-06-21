@@ -32,22 +32,32 @@ def actualizar_comentario(db: Session, prospecto_id: int, comentario: Comentario
     return db_comentario
 
 
-def cargar_comentarios_csv(db: Session, edt: UploadFile):
-    content = edt.file.read().decode("utf-8")
-    reader = csv.DictReader(StringIO(content))
+def cargar_comentarios_csv(db: Session, file: UploadFile):
+    content = file.file.read().decode("utf-8").splitlines()
+    reader = csv.DictReader(content)
     for row in reader:
-        comentario_data = ComentarioCreate(
-            comentario_id=int(row["comentario_id"]),
-            comentario_descripcion=row["comentario_descripcion"],
-            detalle_comentario=row["detalle_comentario"],
-            prospecto_id=int(row["prospecto_id"]),
-            observacion=row["observacion"],
-            usuario_creacion_id=int(row["usuario_creacion_id"]),
-            fecha_creacion=row["fecha_creacion"],
-            usuario_modificacion_id=int(row["usuario_modificacion_id"]),
-            fecha_modificacion=row["fecha_modificacion"],
-        )
-        db_comentario = Comentario(**comentario_data.dict())
-        db.add(db_comentario)
+        if (
+            not db.query(Comentario)
+            .filter_by(
+                comentario_descripcion=row["comentario_descripcion"],
+                detalle_comentario=row["detalle_comentario"],
+                prospecto_id=int(row["prospecto_id"]),
+            )
+            .first()
+        ):
+            comentario = Comentario(
+                comentario_descripcion=row["comentario_descripcion"],
+                detalle_comentario=row["detalle_comentario"],
+                prospecto_id=int(row["prospecto_id"]),
+                observacion=row["observacion"],
+                usuario_creacion_id=int(row["usuario_creacion_id"]),
+                fecha_creacion=datetime.strptime(
+                    row["fecha_creacion"], "%Y-%m-%dT%H:%M:%S"
+                ),
+                usuario_modificacion_id=int(row["usuario_modificacion_id"]),
+                fecha_modificacion=datetime.strptime(
+                    row["fecha_modificacion"], "%Y-%m-%dT%H:%M:%S"
+                ),
+            )
+            db.add(comentario)
     db.commit()
-    return {"message": "Comentarios cargados correctamente"}

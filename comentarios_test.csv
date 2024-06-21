@@ -1,3 +1,3 @@
-comentario_id,comentario_descripcion,detalle_comentario,prospecto_id,observacion,usuario_creacion_id,fecha_creacion,usuario_modificacion_id,fecha_modificacion
-1749154,Descripción del comentario 1,Detalle del comentario 1,2384,Observación 1,2384,2019-04-04T17:39:36,2384,2019-04-04T17:39:36
-1749155,Descripción del comentario 2,Detalle del comentario 2,2274,Observación 2,2274,2019-04-04T17:40:11,2274,2019-04-04T17:40:11
+comentario_descripcion,detalle_comentario,prospecto_id,observacion,usuario_creacion_id,fecha_creacion,usuario_modificacion_id,fecha_modificacion
+Descripción del comentario 1,Detalle del comentario 1,2384,Observación 1,2384,2019-04-04T17:39:36,2384,2019-04-04T17:39:36
+Descripción del comentario 2,Detalle del comentario 2,2274,Observación 2,2274,2019-04-04T17:40:11,2274,2019-04-04T17:40:11
